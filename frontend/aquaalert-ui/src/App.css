@@ -1,0 +1,204 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI",
+    system-ui, sans-serif;
+  background: #0f172a; /* deep slate */
+  color: #e5e7eb;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.container {
+  min-height: 100vh;
+  padding: 40px;
+  text-align: center;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.title {
+  font-size: 2.6rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-top: 8px;
+  margin-bottom: 40px;
+  font-size: 0.95rem;
+}
+
+/* =========================
+   MAP CARD
+========================= */
+
+.map-container {
+  position: relative;
+  background: radial-gradient(
+    circle at top,
+    #020617,
+    #000000
+  );
+  border-radius: 22px;
+  padding: 60px 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+
+  /* smooth load animation */
+  opacity: 0;
+  transform: scale(0.98);
+  animation: mapFadeIn 1s ease-out forwards;
+}
+
+/* =========================
+   MAP WRAPPER
+========================= */
+
+.map-wrapper {
+  overflow: hidden;
+  touch-action: pan-x pan-y;
+}
+
+.map-shell {
+  position: relative;
+  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, 0.6));
+}
+
+/* =========================
+   INDIA MAP
+========================= */
+
+.india-map {
+  width: 100%;
+  max-width: 900px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* Default state appearance (always visible) */
+.india-map path {
+  fill: rgba(255, 255, 255, 0.08); /* soft neutral */
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1;
+  transition: fill 0.25s ease, filter 0.25s ease, transform 0.25s ease;
+  cursor: pointer;
+}
+
+/* Hover glow */
+.india-map path:hover {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.25));
+}
+
+/* =========================
+   TOOLTIP
+========================= */
+
+.tooltip {
+  position: absolute;
+  background: rgba(2, 6, 23, 0.92);
+  padding: 16px 20px;
+  border-radius: 14px;
+  color: #e5e7eb;
+  font-size: 0.9rem;
+  text-align: left;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  animation: fadeIn 0.2s ease-out;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.tooltip strong {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.tooltip div {
+  font-size: 0.85rem;
+  color: #cbd5f5;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Map load animation */
+@keyframes mapFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* =========================
+   HEAT PULSE (ACTIVE STATE)
+========================= */
+
+.india-map path.active {
+  animation: pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.15));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.35));
+  }
+  100% {
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.15));
+  }
+}
+
+/* =========================
+   DESKTOP MICRO-ZOOM
+========================= */
+
+.map-container:hover .india-map {
+  transform: scale(1.02);
+}
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+@media (max-width: 768px) {
+  .map-container {
+    padding: 30px 16px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 0.85rem;
+  }
+
+  .tooltip {
+    font-size: 0.85rem;
+    padding: 14px 16px;
+  }
+}
